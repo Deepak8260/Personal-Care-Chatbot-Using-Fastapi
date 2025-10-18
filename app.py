@@ -4,9 +4,14 @@ from services.llm_service import init_gemini_model
 from services.db_service import fetch_last_5_chats, init_database, store_chat
 from services.agent_service import create_agent
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 # from langchain.schema import StrOutputParser
 
 app = FastAPI(title="💬 Product Info Assistant API", version="1.0")
+
+# Mount frontend folder
+app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
 
 # Initialize once
 @app.on_event("startup")
@@ -22,119 +27,11 @@ class QueryRequest(BaseModel):
     user_query: str
 
 # Root endpoint
-@app.get("/", response_class=HTMLResponse)
-def get_chat_ui():
-    html_content = """
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>💬 Product Info Assistant</title>
-      <style>
-        body {
-          font-family: Arial, sans-serif;
-          background-color: #f4f6f8;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          height: 100vh;
-          margin: 0;
-        }
-        .chat-container {
-          width: 90%;
-          max-width: 600px;
-          background: white;
-          border-radius: 12px;
-          box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-          display: flex;
-          flex-direction: column;
-          padding: 16px;
-        }
-        .chat-box {
-          flex: 1;
-          overflow-y: auto;
-          max-height: 70vh;
-          margin-bottom: 10px;
-          border: 1px solid #ddd;
-          padding: 10px;
-          border-radius: 8px;
-        }
-        .message {
-          margin: 8px 0;
-        }
-        .user {
-          text-align: right;
-          color: #1565c0;
-          font-weight: bold;
-        }
-        .assistant {
-          text-align: left;
-          color: #2e7d32;
-        }
-        input {
-          width: 80%;
-          padding: 10px;
-          border-radius: 8px;
-          border: 1px solid #ccc;
-        }
-        button {
-          padding: 10px 16px;
-          margin-left: 8px;
-          border: none;
-          background-color: #1976d2;
-          color: white;
-          border-radius: 8px;
-          cursor: pointer;
-        }
-        button:hover {
-          background-color: #125ea3;
-        }
-      </style>
-    </head>
-    <body>
-      <div class="chat-container">
-        <h2>💬 Product Info Assistant</h2>
-        <div class="chat-box" id="chat-box"></div>
-        <div>
-          <input type="text" id="user-input" placeholder="Ask something..." />
-          <button onclick="sendMessage()">Send</button>
-        </div>
-      </div>
+@app.get("/")
+def serve_frontend():
+    """Serve the chatbot HTML UI"""
+    return FileResponse("frontend/index.html")
 
-      <script>
-        async function sendMessage() {
-          const input = document.getElementById('user-input');
-          const chatBox = document.getElementById('chat-box');
-          const message = input.value.trim();
-          if (!message) return;
-
-          // Display user message
-          chatBox.innerHTML += `<div class="message user">You: ${message}</div>`;
-          input.value = "";
-
-          // Send to FastAPI
-          try {
-            const res = await fetch("/ask", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ user_query: message })
-            });
-            const data = await res.json();
-            const reply = data.response || data.detail || "Error fetching response";
-
-            chatBox.innerHTML += `<div class="message assistant">🤖: ${reply}</div>`;
-            chatBox.scrollTop = chatBox.scrollHeight;
-          } catch (err) {
-            chatBox.innerHTML += `<div class="message assistant">⚠️ Error: ${err.message}</div>`;
-          }
-        }
-      </script>
-    </body>
-    </html>
-    """
-    return HTMLResponse(content=html_content)
 
 
 # Chat endpoint

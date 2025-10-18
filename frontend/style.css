@@ -1,0 +1,109 @@
+body {
+  font-family: "Inter", sans-serif;
+  background: #f3f4f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.chat-container {
+  /* CHANGE 1: Increase overall width to use more screen space */
+  width: 95%;              
+  
+  /* CHANGE 2: Increase the maximum width to make it feel roomy, 
+     but prevent it from being overwhelmingly wide on huge monitors. 
+     600px was too small; 800px or 900px is better for an LLM-style feel. */
+  max-width: 900px;        
+  
+  /* Retain the height as 80vh, but increase the max-height if needed */
+  height: 90vh;            /* Making it 90% of the viewport height */
+  
+  background: white;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+header {
+  background: #3b82f6;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  font-weight: bold;
+}
+
+.chat-box {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  padding: 10px 14px;
+  border-radius: 12px;
+  max-width: 80%;
+  animation: fadeIn 0.3s ease;
+}
+
+.message.user {
+  background: #e0f2fe;
+  align-self: flex-end;
+}
+
+.message.bot {
+  background: #f1f5f9;
+  align-self: flex-start;
+}
+
+.chat-input {
+  display: flex;
+  border-top: 1px solid #e5e7eb;
+  padding: 10px;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
+
+.chat-input button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin-left: 8px;
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background: #2563eb;
+}
+
+.spinner {
+  border: 3px solid #eee;
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
