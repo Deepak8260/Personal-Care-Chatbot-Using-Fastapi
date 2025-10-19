@@ -48,7 +48,14 @@ def ask_question(request: QueryRequest):
             chat_context += f"User: {chat['user_message']}\nAssistant: {chat['ai_response']}\n"
 
         # Step 2: Build contextual input
+        # app.py - Modify the contextual_prompt for the agent
         contextual_prompt = (
+            # Add a directive for robust SQL generation
+            f"SYSTEM INSTRUCTION: When querying product_details, use the SQL LIKE operator. "
+            f"For partial or ambiguous queries, prioritize using the OR operator between keywords "
+            f"(e.g., 'keyword1' OR 'keyword2') to maximize the chance of finding a product. "
+            f"Only use AND for mandatory parts of a product name.\n\n"
+            
             f"Below is the chat history between the user and the assistant.\n"
             f"Use it as context to answer the next question naturally and accurately.\n\n"
             f"{chat_context}\n"
