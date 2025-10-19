@@ -50,11 +50,16 @@ def ask_question(request: QueryRequest):
         # Step 2: Build contextual input
         # app.py - Modify the contextual_prompt for the agent
         contextual_prompt = (
-            # Add a directive for robust SQL generation
-            f"SYSTEM INSTRUCTION: When querying product_details, use the SQL LIKE operator. "
-            f"For partial or ambiguous queries, prioritize using the OR operator between keywords "
-            f"(e.g., 'keyword1' OR 'keyword2') to maximize the chance of finding a product. "
-            f"Only use AND for mandatory parts of a product name.\n\n"
+            # --- FINAL, AGGRESSIVE SEARCH DIRECTIVE ---
+            f"AGENT SYSTEM DIRECTIVE: You are an expert at partial product matching. "
+            f"Your primary goal is to find the product record if the user provides ANY part of the name.\n"
+            
+            f"1. **TOLERANCE:** You **MUST** use the **ILIKE** operator instead of LIKE or = (ILIKE is case-insensitive, essential for PostgreSQL/Supabase). "
+            f"2. **KEYWORDS:** Break the user's current query into **4 to 6** distinct, unique words (nouns, brands, key features). Ignore common words like 'of', 'me', 'give'. "
+            f"3. **WILDACARDS & OR:** You **MUST** combine ALL extracted keywords using the **OR** operator, enclosing each keyword in '%' wildcards on both sides. "
+            f"   This ensures success if **ANY SINGLE KEYWORD** is found in the product_name column.\n"
+            f"   Example query logic: `... WHERE product_name ILIKE '%keyword1%' OR product_name ILIKE '%keyword2%' OR ...`\n\n"
+            # ----------------------------------------
             
             f"Below is the chat history between the user and the assistant.\n"
             f"Use it as context to answer the next question naturally and accurately.\n\n"
