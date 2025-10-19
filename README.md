@@ -6,6 +6,16 @@ This project integrates **FastAPI**, **LangChain agents**, **Google Gemini**, **
 
 ---
 
+
+
+| **Platform**  | **Description**                                                                                   | **Live URL**                                                                                                |
+| ------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| **Render**    | Complete deployment of the full application (both FastAPI backend and LangChain-powered logic).   | 🔗 [https://personal-care-chatbot-fastapi.onrender.com](https://personal-care-chatbot-fastapi.onrender.com) |
+| **Streamlit** | Full app deployment with integrated backend and chat UI, accessible directly via Streamlit Cloud. | 💬 [https://personal-care-chatbot.streamlit.app](https://personal-care-chatbot.streamlit.app)               |
+
+
+
+
 ## 🚀 Core Tech Stack
 
 | Category           | Tool / Library                                      | Purpose                                                |
@@ -287,13 +297,6 @@ Now open your browser at 👉 **[http://localhost:8000](http://localhost:8000)**
 Your chatbot will be live and ready to use! 🚀
 
 ---
-
-
-| **Platform**  | **Description**                                                                                   | **Live URL**                                                                                                |
-| ------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| **Render**    | Complete deployment of the full application (both FastAPI backend and LangChain-powered logic).   | 🔗 [https://personal-care-chatbot-fastapi.onrender.com](https://personal-care-chatbot-fastapi.onrender.com) |
-| **Streamlit** | Full app deployment with integrated backend and chat UI, accessible directly via Streamlit Cloud. | 💬 [https://personal-care-chatbot.streamlit.app](https://personal-care-chatbot.streamlit.app)               |
-
 
 ## 🔍 Example Queries
 
