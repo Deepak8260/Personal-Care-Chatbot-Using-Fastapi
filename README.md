@@ -253,27 +253,47 @@ Visit 👉 **[http://127.0.0.1:8000](http://127.0.0.1:8000)**
 
 ## 🐳 Running with Docker
 
-**Dockerfile:**
+You don’t need to build the image manually — it’s already available on **Docker Hub**.
+Simply **pull** and **run** it using the following commands 👇
 
-```dockerfile
-FROM python:3.11-slim
-WORKDIR /app
-COPY . .
-RUN pip install --no-cache-dir -r requirements.txt
-EXPOSE 8000
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
-```
-
-### Build & Run
+### 🧾 Step 1 — Pull the Image
 
 ```bash
-docker build -t kumar6371/personal-care-chatbot:latest .
-docker run -d -p 8000:8000 --env-file .env kumar6371/personal-care-chatbot:latest
+docker pull kumar3472/personal-care-fastapi:latest
 ```
 
-Then open **[http://localhost:8000](http://localhost:8000)**
+### 🧾 Step 2 — Run the Container
+
+You’ll need to provide your credentials via the `--env` or `--env-file` option so that the container can access the Gemini API and Supabase database.
+
+#### Option 1 — Using `.env` file
+
+(Recommended if you already have a `.env` file in the same directory)
+
+```bash
+docker run -d -p 8000:8000 --env-file .env kumar3472/personal-care-fastapi:latest
+```
+
+#### Option 2 — Passing Environment Variables Directly
+
+```bash
+docker run -d -p 8000:8000 \
+  -e GEMINI_API_KEY=your_api_key \
+  -e SUPABASE_DB_URL=your_supabase_database_url \
+  kumar3472/personal-care-fastapi:latest
+```
+
+Now open your browser at 👉 **[http://localhost:8000](http://localhost:8000)**
+Your chatbot will be live and ready to use! 🚀
 
 ---
+
+
+| **Platform**  | **Description**                                                                                   | **Live URL**                                                                                                |
+| ------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| **Render**    | Complete deployment of the full application (both FastAPI backend and LangChain-powered logic).   | 🔗 [https://personal-care-chatbot-fastapi.onrender.com](https://personal-care-chatbot-fastapi.onrender.com) |
+| **Streamlit** | Full app deployment with integrated backend and chat UI, accessible directly via Streamlit Cloud. | 💬 [https://personal-care-chatbot.streamlit.app](https://personal-care-chatbot.streamlit.app)               |
+
 
 ## 🔍 Example Queries
 
