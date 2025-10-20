@@ -10,8 +10,8 @@ This project integrates **FastAPI**, **LangChain agents**, **Google Gemini**, **
 
 | **Platform**  | **Description**                                                                                   | **Live URL**                                                                                                |
 | ------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| **Render**    | Complete deployment of the full application (both FastAPI backend and LangChain-powered logic).   | 🔗 [https://personal-care-chatbot-fastapi.onrender.com](https://personal-care-chatbot-fastapi.onrender.com) |
-| **Streamlit** | Full app deployment with integrated backend and chat UI, accessible directly via Streamlit Cloud. | 💬 [https://personal-care-chatbot.streamlit.app](https://personal-care-chatbot.streamlit.app)               |
+| **Render**    | Complete deployment of the full application (both FastAPI backend and LangChain-powered logic).   | 🔗 [https://personal-care-chatbot-fastapi.onrender.com](https://personal-care-chatbot-using-fastapi.onrender.com/) |
+| **Streamlit** | Full app deployment with integrated backend and chat UI, accessible directly via Streamlit Cloud. | 💬 [https://personal-care-chatbot.streamlit.app](https://personal-care-chatbot-new.streamlit.app/)               |
 
 
 
